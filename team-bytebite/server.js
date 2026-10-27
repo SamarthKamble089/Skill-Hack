@@ -539,8 +539,23 @@ async function startServer() {
 
     await seedDatabase();
 
-    app.listen(PORT, () => {
+    const server = app.listen(PORT, () => {
       console.log(`[Server] Smart Canteen Hub running on http://127.0.0.1:${PORT}`);
+    });
+
+    server.on('error', (err) => {
+      if (err.code === 'EADDRINUSE') {
+        const fallbackPort = Number(PORT) + 1;
+        console.warn(`[Server] Port ${PORT} in use, automatically trying fallback port ${fallbackPort}...`);
+        const fallbackServer = app.listen(fallbackPort, () => {
+          console.log(`[Server] Smart Canteen Hub running on http://127.0.0.1:${fallbackPort}`);
+        });
+        fallbackServer.on('error', (fbErr) => {
+          console.error(`[Server] Failed to bind to fallback port ${fallbackPort}:`, fbErr.message);
+        });
+      } else {
+        console.error('[Server Error]', err.message);
+      }
     });
   } catch (err) {
     console.error('[Startup Error] Failed to connect to MongoDB:', err.message);
