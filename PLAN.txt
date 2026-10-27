@@ -24,7 +24,7 @@ A. `menu` collection:
    - `amount`: number (price in ₹, must be > 0)
    - `availableUnits`: number (integer >= 0; physical stock count)
    - `prepTime`: number (time taken to make in minutes, e.g., 10)
-   - `spiceLevel`: number (integer from 1 to 5, e.g., 1 = Mild 🌶️, 5 = Extra Hot 🌶️🌶️🌶️🌶️🌶️)
+   - `spiceLevel`: number (integer from 1 to 5, e.g., 0 + no spice, 5 = Extra Hot 🌶️🌶️🌶️🌶️🌶️)
    - `dietaryType`: string (strictly one of: "veg", "egg", "non-veg")
      - "veg" ➔ Rendered with 🥦 Veg
      - "egg" ➔ Rendered with 🥚 Egg
